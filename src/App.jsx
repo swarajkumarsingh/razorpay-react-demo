@@ -6,8 +6,8 @@ function App() {
   const handlePayment = async () => {
     setLoading(true);
     try {
-      const razorpayKey = "rzp_test_XXXXX";
-      const orderId = "order_Q3DkgV673phO4z";
+      const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
+      const orderId = "order_Q3DxQHooIzQSlb";
       const razorpayAmount = "700";
 
       const options = {
