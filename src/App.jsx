@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [razorpayKey, setRazorpayKey] = useState("");
@@ -6,6 +6,19 @@ function App() {
   const [razorpayAmount, setRazorpayAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [paymentResponse, setPaymentResponse] = useState(null);
+
+  useEffect(() => {
+    const storedKey = localStorage.getItem("razorpayKey");
+    if (storedKey) {
+      setRazorpayKey(storedKey);
+    }
+  }, []);
+
+  const handleRazorpayKeyChange = (e) => {
+    const key = e.target.value;
+    setRazorpayKey(key);
+    localStorage.setItem("razorpayKey", key);
+  };
 
   const handlePayment = async () => {
     if (!razorpayKey || !orderId || !razorpayAmount) {
@@ -70,7 +83,7 @@ function App() {
           type="text"
           placeholder="Razorpay Key"
           value={razorpayKey}
-          onChange={(e) => setRazorpayKey(e.target.value)}
+          onChange={handleRazorpayKeyChange}
           style={{
             padding: "10px",
             margin: "10px 0",
